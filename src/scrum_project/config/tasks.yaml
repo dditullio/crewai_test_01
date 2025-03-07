@@ -1,0 +1,52 @@
+# research_task:
+#   description: >
+#     Conduct a thorough research about {topic}
+#     Make sure you find any interesting and relevant information given
+#     the current year is {current_year}.
+#   expected_output: >
+#     A list with 10 bullet points of the most relevant information about {topic}
+#   agent: researcher
+
+# reporting_task:
+#   description: >
+#     Review the context you got and expand each topic into a full section for a report.
+#     Make sure the report is detailed and contains any and all relevant information.
+#   expected_output: >
+#     A fully fledged report with the main topics, each with a full section of information.
+#     Formatted as markdown without '```'
+#   agent: reporting_analyst
+
+refinamiento_backlog:
+  description: >
+    El Product Owner revisa el backlog en JIRA y prioriza las tareas para el próximo sprint.
+  expected_output: >
+    Un backlog priorizado con las tareas ordenadas en JIRA.
+  agent: product_owner
+
+planificacion_sprint:
+  description: >
+    El Scrum Master organiza la planificación del sprint, asigna tareas y se asegura de que todos entiendan sus responsabilidades.
+  expected_output: >
+    Un sprint planificado con tareas asignadas en JIRA y notificación en Slack.
+  agent: scrum_master
+
+desarrollo_codigo:
+  description: >
+    Los desarrolladores implementan las funcionalidades y suben su código a GitHub.
+  expected_output: >
+    Código funcional subido a un repositorio en GitHub con un Pull Request abierto.
+  agent: developer
+
+pruebas_calidad:
+  description: >
+    Los testers verifican las funcionalidades y reportan bugs en JIRA.
+  expected_output: >
+    Un reporte de calidad con pruebas realizadas y errores documentados en JIRA.
+  agent: tester
+
+revision_sprint:
+  description: >
+    El equipo revisa el trabajo realizado y recibe feedback.
+  expected_output: >
+    Un informe con el estado del sprint y posibles mejoras para el siguiente.
+  agent: scrum_master
