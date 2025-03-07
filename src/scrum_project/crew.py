@@ -10,15 +10,23 @@ class ScrumProject():
 
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
-    tools = [JiraTool(), GithubTool(), SlackTool()]  # ⚠️ Agregar herramientas aquí
+    # tools = [JiraTool(), GithubTool(), SlackTool()]  # ⚠️ Agregar herramientas aquí
 
-    print(f"Herramientas registradas en CrewBase: {[t.name for t in tools]}")
-    
+TOOLS_DICT = {tool.name: tool for tool in [JiraTool(), GithubTool(), SlackTool()]}
+
+@CrewBase
+class ScrumProject():
+    """Crew para gestionar el proyecto SCRUM"""
+
+    agents_config = 'config/agents.yaml'
+    tasks_config = 'config/tasks.yaml'
+    tools = list(TOOLS_DICT.values())  # 🔥 Ahora CrewAI tiene un mapeo forzado
+
     @agent
     def product_owner(self) -> Agent:
         return Agent(
             config=self.agents_config['product_owner'],
-            tools=[JiraTool(), SlackTool()],  # ⚠️ Agregar las herramientas correctamente
+            tools=[TOOLS_DICT["jira_tool"], TOOLS_DICT["slack_tool"]],
             verbose=True
         )
 
@@ -26,7 +34,7 @@ class ScrumProject():
     def scrum_master(self) -> Agent:
         return Agent(
             config=self.agents_config['scrum_master'],
-            tools=[JiraTool(), SlackTool()],
+            tools=[TOOLS_DICT["jira_tool"], TOOLS_DICT["slack_tool"]],
             verbose=True
         )
 
@@ -34,7 +42,7 @@ class ScrumProject():
     def developer(self) -> Agent:
         return Agent(
             config=self.agents_config['developer'],
-            tools=[GithubTool(), SlackTool()],
+            tools=[TOOLS_DICT["github_tool"], TOOLS_DICT["slack_tool"]],
             verbose=True
         )
 
@@ -42,9 +50,10 @@ class ScrumProject():
     def tester(self) -> Agent:
         return Agent(
             config=self.agents_config['tester'],
-            tools=[JiraTool(), SlackTool()],
+            tools=[TOOLS_DICT["jira_tool"], TOOLS_DICT["slack_tool"]],
             verbose=True
         )
+
     
     @task
     def refinamiento_backlog(self) -> Task:
